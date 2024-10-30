@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Metadata;
 
 public class ObjectSelection : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.FindGameObjectWithTag("selectingSignifier").gameObject.SetActive(false);
+       
     }
 
     // Update is called once per frame
@@ -18,10 +19,24 @@ public class ObjectSelection : MonoBehaviour
 
     public void selectUnSelectObject(GameObject currentGameObject)
     {
-        Debug.Log("Trigger Entered");
-       // GameObject.FindGameObjectWithTag("selectingSignifier").gameObject.SetActive(true);
+      
+        foreach (Transform child in currentGameObject.transform)
+        {
+           
+            if (child.tag == "selectingSignifier")
+            {
+                if(child.gameObject.activeInHierarchy)
+                {
+                    child.gameObject.SetActive(false);
+                }
+                else
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
+        }
 
-        List<GameObject> foundObjects = new List<GameObject>();
+       /* List<GameObject> foundObjects = new List<GameObject>();
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>(true);
 
         foreach (GameObject obj in allObjects)
@@ -31,5 +46,6 @@ public class ObjectSelection : MonoBehaviour
                 obj.SetActive(true);
             }
         }
+       */
     }
 }
